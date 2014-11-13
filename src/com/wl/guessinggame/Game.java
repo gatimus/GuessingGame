@@ -92,9 +92,18 @@ public class Game extends ActionBarActivity implements OnClickListener {
 	}
 	
 	@Override
-	public void onActivityResult(int RequestCode, int resultCode, Intent settingData) {
-		super.onActivityResult(RequestCode, resultCode, settingData);
-		
+	public void onActivityResult(int requestCode, int resultCode, Intent settingData) {
+		super.onActivityResult(requestCode, resultCode, settingData);
+		if(requestCode == SETTING_CODE) {
+			if(resultCode == RESULT_OK) {
+				max = settingData.getExtras().getInt("max", 100);
+				min = settingData.getExtras().getInt("min", 0);
+			}
+			else if(resultCode == RESULT_CANCELED) {
+				toast = Toast.makeText(getApplicationContext(), "Settings canceled.", Toast.LENGTH_LONG);
+				toast.show();
+			}
+		}
 	}
 	
 }
