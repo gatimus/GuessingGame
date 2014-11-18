@@ -9,5 +9,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="btn_guess">Guess</string>
     <string name="text_guess">Guess what number I am thinking of.</string>
+    <string name="etMin">Min:</string>
+    <string name="etMax">Max:</string>
+    <string name="btnSet">Set</string>
 
 </resources>

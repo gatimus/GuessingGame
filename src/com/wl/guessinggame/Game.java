@@ -3,15 +3,19 @@ package com.wl.guessinggame;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
-public class Game extends ActionBarActivity implements OnClickListener {
+public class Game extends ActionBarActivity implements OnClickListener, OnEditorActionListener {
 	
 	private final int SETTING_CODE = 2;
 	private int min;
@@ -33,6 +37,7 @@ public class Game extends ActionBarActivity implements OnClickListener {
 		btnGuess = (Button) findViewById(R.id.btnGuess);
 		btnGuess.setOnClickListener(this);
 		inputGuess = (EditText) findViewById(R.id.editGuess);
+		inputGuess.setOnEditorActionListener(this);
 		newGame();
 	}
 
@@ -98,12 +103,21 @@ public class Game extends ActionBarActivity implements OnClickListener {
 			if(resultCode == RESULT_OK) {
 				max = settingData.getExtras().getInt("max", 100);
 				min = settingData.getExtras().getInt("min", 0);
+				newGame();
 			}
 			else if(resultCode == RESULT_CANCELED) {
 				toast = Toast.makeText(getApplicationContext(), "Settings canceled.", Toast.LENGTH_LONG);
 				toast.show();
 			}
 		}
+	}
+
+	@Override
+	public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		if (actionId == EditorInfo.IME_ACTION_NEXT || actionId == EditorInfo.IME_ACTION_DONE) {
+			onClick(btnGuess);
+		}
+		return false;
 	}
 	
 }
